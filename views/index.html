@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <title>Wakatime Data reader</title>
+    <!-- BOOTSTRAP -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="../public/stylesheets/index.css"
+    />
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
+    <!-- Required scripts -->
+    <script src="//unpkg.com/vue@latest/dist/vue.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div
+        v-if="!datalog"
+        class="root d-flex flex-column justify-content-center align-items-center"
+      >
+        <h1 class="my-4">Seleziona il file da analizzare</h1>
+        <b-button size="lg" @click="selectFile()">Carica File</b-button>
+        <b-form-file id="form-file" v-model="file" style="display: none">
+        </b-form-file>
+      </div>
+      <div v-else class="root d-flex flex-column">
+        <div class="tabs-wrapper d-flex align-items-center">
+          <b-button
+            v-for="day in datalog.days"
+            @click="setActiveTab(day)"
+            class="day-button mx-2 d-flex align-items-center justify-content-center"
+            :class="{selected : (day == selected_day)}"
+          >
+            <div>{{ day.date }}</div>
+          </b-button>
+        </div>
+        <div class="day-content d-flex flex-column align-items-center">
+            <!-- CATEGORIES -->
+            <div class="data-container d-flex flex-column align-items-center">
+                <div style="text-align: center;"> <h3>Categorie</h3> </div>
+                <b-list-group horizontal class="my-auto">
+                    <b-list-group-item v-for="category in selected_day.categories" class="d-flex flex-column">
+                        <strong> {{ category.name }} </strong>
+                        <div> Time spent: {{ category.text }} </div>
+                        <div> Percentage on the day: {{ category.percent }} % </div>
+                    </b-list-group-item>
+                </b-list-group>
+                
+            </div>
+            <!-- EDITORS -->
+            <div class="data-container d-flex flex-column">
+                <div> Categorie </div>
+                <div v-for="category in selected_day.categories" class="d-flex">
+                    <div> {{ category.name }} </div>
+                    <div> {{ category.text }} </div>
+                    <div> {{ category.percent }} </div>
+                </div>
+            </div>
+            <!-- LANGUAGES -->
+            <div class="data-container d-flex flex-column">
+                <div> Categorie </div>
+                <div v-for="category in selected_day.categories" class="d-flex">
+                    <div> {{ category.name }} </div>
+                    <div> {{ category.text }} </div>
+                    <div> {{ category.percent }} </div>
+                </div>
+            </div>
+            <!-- LANGUAGES -->
+            <div class="data-container d-flex flex-column">
+                <div> Categorie </div>
+                <div v-for="category in selected_day.categories" class="d-flex">
+                    <div> {{ category.name }} </div>
+                    <div> {{ category.text }} </div>
+                    <div> {{ category.percent }} </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- CUSTOM -->
+    <script src="/public/javascripts/index.js"></script>
+  </body>
+</html>
