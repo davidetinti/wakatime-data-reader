@@ -43,6 +43,13 @@ var vm = new Vue({
     setActiveTab(tab) {
       this.selected_day = tab;
     },
+    calculateTotalTime(project) {
+      let total = 0;
+      project.languages.forEach((language) => {
+        total += language.total_seconds / 3600;
+      });
+      return Math.ceil(total + 100) / 100;
+    },
   },
   watch: {
     file: function (file) {

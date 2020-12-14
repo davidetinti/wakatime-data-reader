@@ -61,44 +61,35 @@
         </div>
         <!-- Production times -->
         <div v-if="datalog" class="d-flex">
-          <div style="display: flex; flex-direction: column; width: 100%;" class="mx-3">
-            <h2 style="text-align: center; margin-top: 15px;">{{ selected_day.date }}</h2>
-            <h3 class="my-3" style="color:  rgb(255, 72, 0);">Progetti</h3>
+          <div
+            style="display: flex; flex-direction: column; width: 100%"
+            class="mx-3"
+          >
+            <h2 style="text-align: center; margin-top: 15px">
+              {{ selected_day.date }}
+            </h2>
+            <h3 class="my-3" style="color: rgb(255, 72, 0)">Progetti</h3>
             <div v-for="project in selected_day.projects">
               <div>
-                <h4 style="color:  rgb(255, 123, 0);">{{ project.name}}</h4>
+                <h4 style="color: rgb(255, 123, 0)">{{ project.name}}</h4>
 
-                <h6 style="color:  rgb(255, 166, 0);">Tempi per file</h6>
+                <h6 style="color: rgb(255, 166, 0)">Tempi per file</h6>
                 <p v-for="entity in project.entities">
-                  {{entity.name}} : {{ Math.ceil(entity.total_seconds / 36) / 100 }} ore
+                  {{entity.name}} : {{ Math.ceil(entity.total_seconds / 36) /
+                  100 }} ore
                 </p>
 
-                <h6 style="color:  rgb(255, 166, 0);">Tempi per linguaggio</h6>
+                <h6 style="color: rgb(255, 166, 0)">Tempi per linguaggio</h6>
                 <p v-for="language in project.languages">
-                  {{language.name}} : {{ Math.ceil(language.total_seconds / 36) / 100 }} ore
+                  {{language.name}} : {{ Math.ceil(language.total_seconds / 36)
+                  / 100 }} ore
                 </p>
+                <h6 style="color:rgb(255, 166, 0)">Tempo totale</h6>
+                <p>{{calculateTotalTime(project) }} ore</p>
               </div>
             </div>
           </div>
         </div>
-
-        <!--
-        <div class="day-content d-flex flex-column align-items-center">
-           CATEGORIES 
-          <div class="data-container d-flex flex-column align-items-center">
-            <div style="text-align: center"><h3>Categorie</h3></div>
-            <b-list-group horizontal class="my-auto">
-              <b-list-group-item
-                v-for="category in selected_day.categories"
-                class="d-flex flex-column"
-              >
-                <strong> {{ category.name }} </strong>
-                <div>Time spent: {{ category.text }}</div>
-                <div>Percentage on the day: {{ category.percent }} %</div>
-              </b-list-group-item>
-            </b-list-group>
-          </div> 
-        </div>-->
       </div>
     </div>
 
