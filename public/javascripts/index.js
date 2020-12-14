@@ -3,9 +3,22 @@ var vm = new Vue({
   data: {
     file: null,
     datalog: null,
-    selected_day : null,
+    selected_day: null,
   },
-  computed: {},
+  computed: {
+    days_hours: function () {
+      let a = [];
+      if (this.datalog) {
+        this.datalog.days.forEach((day) => {
+          a.push({
+            date: day.date,
+            time: day.grand_total.total_seconds,
+          });
+        });
+      }
+      return a;
+    },
+  },
   methods: {
     selectFile() {
       document.getElementById("form-file").click();
@@ -17,14 +30,9 @@ var vm = new Vue({
           try {
             let json = event.target.result;
             let data = JSON.parse(json);
-            if (vm.checkDataIntegrity(data)) {
-              throw "jsonschemeerror";
-            }
             vm.$data.datalog = data;
           } catch (err) {
-            if (err == "jsonschemeerror")
-              window.alert("file .json non contenente tweet");
-            else window.alert("Il file deve essere di tipo JSON!");
+            window.alert("Il file deve essere di tipo JSON!");
           }
         };
         fileReader.readAsText(file, "utf-8");
@@ -32,22 +40,16 @@ var vm = new Vue({
         window.alert("Inserire un file da caricare");
       }
     },
-    checkDataIntegrity(data) {
-      //if (!data.hasOwnProperty("name")) return true;
-      //if (!data.hasOwnProperty("tweets")) return true;
-      //if (!data.hasOwnProperty("search_parameters")) return true;
-      return false;
+    setActiveTab(tab) {
+      this.selected_day = tab;
     },
-    setActiveTab(tab){
-        this.selected_day = tab
-    }
   },
   watch: {
     file: function (file) {
       this.loadSearch(file);
     },
-    datalog: function (newvalue,oldvalue) {
-        this.selected_day = this.datalog.days[0]
-    }
+    datalog: function () {
+      this.selected_day = this.datalog.days[0];
+    },
   },
 });
