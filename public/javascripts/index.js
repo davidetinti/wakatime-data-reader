@@ -44,11 +44,12 @@ var vm = new Vue({
       this.selected_day = tab;
     },
     calculateTotalTime(project) {
+      console.log("called");
       let total = 0;
       project.languages.forEach((language) => {
-        total += language.total_seconds / 3600;
+        total = total + Math.ceil(language.total_seconds / 36) / 100;
       });
-      return Math.ceil(total + 100) / 100;
+      return Math.ceil(total * 100) / 100;
     },
   },
   watch: {
