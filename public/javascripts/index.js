@@ -51,6 +51,19 @@ var vm = new Vue({
       });
       return Math.ceil(total * 100) / 100;
     },
+    calculateTotalHours(){
+      let hours = 0;
+      if (this.datalog){
+        this.datalog.days.forEach(day => {
+          day.projects.forEach(project => {
+            if (project.name == "tweetbook" || project.name == "Progetto" || project.name == "wakatime-data-reader" || project.name == "python-getting-started"){
+              hours = hours + this.calculateTotalTime(project)
+            }
+          });
+        });
+      }
+      return hours
+    }
   },
   watch: {
     file: function (file) {

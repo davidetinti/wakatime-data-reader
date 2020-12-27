@@ -67,6 +67,7 @@
           >
             <h2 style="text-align: center; margin-top: 15px">
               {{ selected_day.date }}
+              {{ calculateTotalHours() }}
             </h2>
             <h3 class="my-3" style="color: rgb(255, 72, 0)">Progetti</h3>
             <div v-for="project in selected_day.projects">
